@@ -17,7 +17,7 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
 
-  nodejs:
+  server:
     build: .
     depends_on:
       postgres:
