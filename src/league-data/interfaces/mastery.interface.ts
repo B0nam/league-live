@@ -1,4 +1,4 @@
-export interface MasteryResponse {
+export interface MasteryDto {
     puuid: string;
     championId: number;
     championLevel: number;
