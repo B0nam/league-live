@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player View</title>
+</head>
+<body>
+  <p id="username">Player: </p>
+  <p id="tag">Tag: </p>
+  <p id="rank">Rank: </p>
+  <p id="wins">Wins: </p>
+  <p id="losses">Losses: </p>
+</body>
+<script>
+  function setPlayerData(username, tag, rank, wins, losses) {
+    document.getElementById('username').innerText = 'Player: ' + username;
+    document.getElementById('tag').innerText = 'Tag: ' + tag;
+    document.getElementById('rank').innerText = 'Rank: ' + rank;
+    document.getElementById('wins').innerText = 'Wins: ' + wins;
+    document.getElementById('losses').innerText = 'Losses: ' + losses;
+  }
+</script>
+</html>
