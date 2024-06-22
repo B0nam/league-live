@@ -1,4 +1,4 @@
-class SummonerDto {
+export class SummonerDto {
     id: string;
     accountId: string;
     puuid: string;

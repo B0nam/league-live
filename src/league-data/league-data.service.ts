@@ -6,6 +6,7 @@ import { AxiosResponse } from "axios";
 import { AccountDto } from "./dtos/account.dto";
 import { PlayerDto } from "./dtos/player.dto";
 import { LeagueEntryDto } from "./dtos/league-entry.dto";
+import { SummonerDto } from "./dtos/summoner.dto";
 
 @Injectable()
 export class LeagueDataService {
@@ -26,7 +27,7 @@ export class LeagueDataService {
     }
 
     getSummonerData(accountId: string): Observable<SummonerDto> {
-        const url = `${this.lolBaseUrl}/summoner/v4/summoners/by-puuid'/${accountId}`;
+        const url = `${this.lolBaseUrl}/summoner/v4/summoners/by-puuid/${accountId}`;
 
         return this.httpService.get(url).pipe(
             map((response: AxiosResponse) => new SummonerDto(response.data)),

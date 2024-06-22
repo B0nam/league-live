@@ -4,6 +4,7 @@ import { MasteryDto } from './interfaces/mastery.interface';
 import { AccountDto } from './dtos/account.dto';
 import { LeagueEntryDto } from './dtos/league-entry.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { SummonerDto } from './dtos/summoner.dto';
 
 @ApiTags('league-data')
 @Controller('league-data')
