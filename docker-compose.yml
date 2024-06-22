@@ -18,10 +18,16 @@ services:
       - "${DB_PORT}:${DB_PORT}"
 
   nodejs:
-    build: .
+    build: league-live/.
     depends_on:
       postgres:
         condition: service_healthy
     ports:
       - "3000:3000"
+    command: npm start
+
+  nodejs-api:
+    build: riot-api/.
+    ports:
+      - "7000:7000"
     command: npm start
