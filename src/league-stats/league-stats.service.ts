@@ -15,11 +15,8 @@ export class LeagueStatsService {
 
             html += `
                 <script>
-                    setPlayerData('${player.username}',
-                                  '${player.tag}',
-                                  '${player.rank}',
-                                  '${player.wins}',
-                                  '${player.losses}');
+                    const playerData = ${JSON.stringify(player)};
+                    setPlayerData(playerData);
                 </script>
             `;
 
