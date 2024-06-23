@@ -1,5 +1,6 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class Player {
   @PrimaryGeneratedColumn()
   id: number;
@@ -37,6 +38,6 @@ export class Player {
   @Column({ default: false })
   inactive: boolean;
 
-  @Column()
-  detailsUrl: string;
+  @Column({ nullable: true })
+  detailsUrl?: string;
 }

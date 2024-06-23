@@ -42,10 +42,17 @@ export class LeagueStatsService {
       where: searchCriteria,
     });
 
-    const leaderboard = !leaderboardAlreadyGot
-      ? this.leagueDataService.getTopTwoHundred(queue, tier, division)
-      : this.playerRepository.find({ where: searchCriteria, take: 200 });
-
-    return leaderboard;
+    if (!(await leaderboardAlreadyGot)) {
+      const players = await (
+        await this.leagueDataService.getTopTwoHundred(queue, tier, division)
+      ).toPromise();
+      await this.playerRepository.save(players);
+      return players;
+    }
+    return await this.playerRepository.find({
+      where: searchCriteria,
+      take: 200,
+      order: { leaguePoints: 1 },
+    });
   }
 }

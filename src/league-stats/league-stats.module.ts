@@ -10,5 +10,6 @@ import { Player } from './entity/player.entity';
   imports: [HttpModule, TypeOrmModule.forFeature([Player])],
   controllers: [LeagueStatsController],
   providers: [LeagueStatsService, LeagueDataService],
+  exports: [TypeOrmModule],
 })
 export class LeagueStatsModule {}

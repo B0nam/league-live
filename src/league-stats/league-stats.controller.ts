@@ -1,6 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { LeagueStatsService } from './league-stats.service';
 import { ApiTags } from '@nestjs/swagger';
+import { QueueType } from './entity/queue-type.enum';
 
 @ApiTags('league-stats')
 @Controller('league-stats')
@@ -21,7 +22,7 @@ export class LeagueStatsController {
 
   @Get('leaderboard/:queue/:tier/:division')
   async getLeaderboard(
-    @Param('queue') queue: string,
+    @Param('queue') queue: QueueType,
     @Param('tier') tier: string,
     @Param('division') division: string,
   ): Promise<any> {
