@@ -2,6 +2,7 @@ import { Controller, Get, Param, Res } from '@nestjs/common';
 import { LeagueStatsService } from './league-stats.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { QueueType } from './entity/queue-type.enum';
 
 @ApiTags('league-stats')
 @Controller('league-stats')
@@ -32,5 +33,13 @@ export class LeagueStatsController {
     } catch (error) {
       res.status(500).send(`Erro ao exportar a view do jogador: ${error.message}`);
     }
+    
+  @Get('leaderboard/:queue/:tier/:division')
+  async getLeaderboard(
+    @Param('queue') queue: QueueType,
+    @Param('tier') tier: string,
+    @Param('division') division: string,
+  ): Promise<any> {
+    return this.leagueStatsService.getLeaderboard(queue, tier, division);
   }
 }
