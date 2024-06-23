@@ -7,7 +7,7 @@ import { QueueType } from './entity/queue-type.enum';
 @ApiTags('league-stats')
 @Controller('league-stats')
 export class LeagueStatsController {
-  constructor(private readonly leagueStatsService: LeagueStatsService) {}
+  constructor(private readonly leagueStatsService: LeagueStatsService) { }
 
   @Get('/:username/:tag')
   async getPlayerView(
@@ -33,7 +33,8 @@ export class LeagueStatsController {
     } catch (error) {
       res.status(500).send(`Erro ao exportar a view do jogador: ${error.message}`);
     }
-    
+  }
+
   @Get('leaderboard/:queue/:tier/:division')
   async getLeaderboard(
     @Param('queue') queue: QueueType,
