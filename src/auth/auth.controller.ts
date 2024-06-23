@@ -1,7 +1,8 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { User } from 'src/user/entities/user.entity';
+import { CreateUserDto } from './dtos/create-user.dto';
+import { SigninDto } from './dtos/signin.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -10,13 +11,14 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('signin')
-  signin(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.username, signInDto.password);
+  signin(@Body() signinDto: SigninDto) {
+    return this.authService.signIn(signinDto.username, signinDto.password);
   }
 
   @HttpCode(HttpStatus.CREATED)
   @Post('signup')
-  sigup(@Body() user: User) {
-    return this.authService.signUp(user);
+  async sigup(@Body() createUserDto: CreateUserDto) {
+    const createdUser = await this.authService.signUp(createUserDto);
+    return { id: createdUser.id };
   }
 }
