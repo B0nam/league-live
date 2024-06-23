@@ -1,14 +1,17 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LeagueDataModule } from './league-data/league-data.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { LoggerModule } from './logger/logger.module';
+import { RequestLogMiddleware } from './logger/middlewares/request-log.middleware';
 
 @Module({
   imports: [
     LeagueDataModule,
     AuthModule,
+    LoggerModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -23,4 +26,10 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(RequestLogMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}
