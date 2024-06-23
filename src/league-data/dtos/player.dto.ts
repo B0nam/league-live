@@ -1,6 +1,7 @@
 import { MasteryDto } from '../interfaces/mastery.interface';
 import { AccountDto } from './account.dto';
 import { LeagueEntryDto } from './league-entry.dto';
+import { SummonerDto } from './summoner.dto';
 
 export class PlayerDto {
   username: string;
