@@ -12,7 +12,9 @@ import { UserService } from './user.service';
 import { Request } from 'express';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { hash } from 'bcrypt';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
