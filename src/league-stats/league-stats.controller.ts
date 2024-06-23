@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Res } from '@nestjs/common';
 import { LeagueStatsService } from './league-stats.service';
 import { ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 
 @ApiTags('league-stats')
 @Controller('league-stats')
@@ -16,6 +17,20 @@ export class LeagueStatsController {
       return await this.leagueStatsService.getPlayerView(username, tag);
     } catch (error) {
       throw new Error(`Erro ao obter dados do jogador: ${error.message}`);
+    }
+  }
+
+  @Get('/export/:username/:tag')
+  async exportPlayerView(
+    @Param('username') username: string,
+    @Param('tag') tag: string,
+    @Res() res: Response,
+  ): Promise<void> {
+    try {
+      const imagePath = await this.leagueStatsService.exportPlayerView(username, tag);
+      res.sendFile(imagePath);
+    } catch (error) {
+      res.status(500).send(`Erro ao exportar a view do jogador: ${error.message}`);
     }
   }
 }
