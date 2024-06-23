@@ -36,4 +36,8 @@ export class UserService {
     }
     return this.userRepository.save(user);
   }
+
+  async update(id: number, user: User): Promise<void> {
+    await this.userRepository.update({ id }, user);
+  }
 }
