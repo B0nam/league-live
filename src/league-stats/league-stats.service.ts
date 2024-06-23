@@ -5,25 +5,27 @@ import * as path from 'path';
 
 @Injectable()
 export class LeagueStatsService {
-    constructor(private readonly leagueDataService: LeagueDataService) { }
+  constructor(private readonly leagueDataService: LeagueDataService) {}
 
-    async getPlayerView(username: string, tag: string): Promise<any> {
-        try {
-            const player = await this.leagueDataService.getPlayerData(username, tag);
-            const filePath = path.resolve(__dirname, '../../src/league-stats/public/league-stats.html');
-            let html = fs.readFileSync(filePath, 'utf8');
+  async getPlayerView(username: string, tag: string): Promise<any> {
+    try {
+      const player = await this.leagueDataService.getPlayerData(username, tag);
+      const filePath = path.resolve(
+        __dirname,
+        '../../src/league-stats/public/league-stats.html',
+      );
+      let html = fs.readFileSync(filePath, 'utf8');
 
-            html += `
+      html += `
                 <script>
                     const playerData = ${JSON.stringify(player)};
                     setPlayerData(playerData);
                 </script>
             `;
 
-            return html;
-
-        } catch (error) {
-            throw new Error(`Erro ao obter view do jogador: ${error.message}`);
-        }
+      return html;
+    } catch (error) {
+      throw new Error(`Erro ao obter view do jogador: ${error.message}`);
     }
+  }
 }

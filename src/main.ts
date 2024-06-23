@@ -12,7 +12,7 @@ async function bootstrap() {
       'Api do sistema de geração de dados de contas de League of Legends.',
     )
     .setVersion('3.0')
-    .addTag('auth')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
