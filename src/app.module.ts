@@ -6,10 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { LoggerModule } from './logger/logger.module';
 import { RequestLogMiddleware } from './logger/middlewares/request-log.middleware';
+import { LeagueStatsModule } from './league-stats/league-stats.module';
 
 @Module({
   imports: [
     LeagueDataModule,
+    LeagueStatsModule,
     AuthModule,
     LoggerModule,
     TypeOrmModule.forRoot({
