@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player View</title>
+</head>
+<body>
+  <main>
+    <div id="content-container">
+      <div id="champion-container">
+        <div id="champion-img-container">
+          <img id="champion-img-url" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_0.jpg">
+        </div>
+        <div id="champion-points">
+          Top Champions:
+          <div id="champion-first">
+            Name - 0000
+          </div>
+          <div id="champion-second">
+            Name - 0000
+          </div>
+          <div id="champion-third">
+            Name - 0000
+          </div>
+        </div>
+      </div>
+      <div id="player-container">
+        <div id="player-profile-area">
+          <div id="name-area">
+            <div id="player-profile-icon">
+              <img id="player-img-url" src="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/0.jpg" alt="">
+            </div>
+            <div id="player-profile-name">
+              [player name]
+            </div>
+          </div>
+          <div id="data-area">
+            <div id="wins">
+              [wins]
+            </div>
+            <div id="losses">
+              [losses]
+            </div>
+            <div id="win-losses">
+              [win-losses]
+            </div>
+          </div>
+        </div>
+        <div id="player-maestry-area">
+          <div id="maestry-img-url">
+            <img id="maestry-img" src="https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/0.png" alt="">
+          </div>
+          <div id="maestry-data">
+            [RANK]
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+<script>
+  async function setPlayerData(playerData) {
+    try {
+      let playerName = playerData.username + '#' + playerData.tag;
+      let playerLevel = playerData.level;
+      let playerIcon = playerData.profileIcon;
+      
+      let playerRank = playerData.leagueData && playerData.leagueData.length > 0 ?
+        { 'tier': playerData.leagueData[0].tier, 'rank': playerData.leagueData[0].rank } :
+        { 'tier': 'UNRANKED', 'rank': '' };
+
+      let playerWinsLosses = playerData.leagueData && playerData.leagueData.length > 0 ?
+        { 'wins': playerData.leagueData[0].wins, 'losses': playerData.leagueData[0].losses } :
+        { 'wins': 0, 'losses': 0 };
+
+      let champions = [
+        {'id': playerData.masteryData && playerData.masteryData.length > 0 ? playerData.masteryData[0].championId : null,
+         'points': playerData.masteryData && playerData.masteryData.length > 0 ? playerData.masteryData[0].championPoints : 0},
+        {'id': playerData.masteryData && playerData.masteryData.length > 1 ? playerData.masteryData[1].championId : null,
+         'points': playerData.masteryData && playerData.masteryData.length > 1 ? playerData.masteryData[1].championPoints : 0},
+        {'id': playerData.masteryData && playerData.masteryData.length > 2 ? playerData.masteryData[2].championId : null,
+         'points': playerData.masteryData && playerData.masteryData.length > 2 ? playerData.masteryData[2].championPoints : 0}
+      ];
+
+      await insertPlayerData(playerName, playerIcon, playerWinsLosses, champions, playerRank);
+    } catch (error) {
+      console.error('Error setting player data:', error);
+      throw error;
+    }
+  }
+
+  async function getChampionName(id) {
+    const url = 'https://ddragon.leagueoflegends.com/cdn/11.19.1/data/en_US/champion.json';
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const champions = data.data;
+      for (let champion in champions) {
+        if (champions[champion].key === id.toString()) {
+          return champions[champion].name;
+        }
+      }
+
+      return null;
+    } catch (error) {
+      console.error('Error fetching champion data:', error);
+      throw error;
+    }
+  }
+
+  function getRankId(tier) {
+    switch (tier) {
+        case 'CHALLENGER':
+            return '10';
+        case 'GRANDMASTER':
+            return '9';
+        case 'MASTER':
+            return '8';
+        case 'DIAMOND':
+            return '7';
+        case 'ESMERALD':
+            return '6'
+        case 'PLATINUM':
+            return '5';
+        case 'GOLD':
+            return '4';
+        case 'SILVER':
+            return '3';
+        case 'BRONZE':
+            return '2';
+        case 'IRON':
+            return '1';
+        default:
+            return '1';
+    }
+  }
+
+  async function insertPlayerData(playerName, playerIcon, playerWinsLosses, champions, playerRank) {
+    try {
+      document.getElementById('player-profile-name').innerHTML = playerName;
+      document.getElementById('player-img-url').src = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/' + playerIcon + '.jpg';
+      document.getElementById('wins').innerHTML = 'Vitórias: ' + playerWinsLosses.wins;
+      document.getElementById('losses').innerHTML = 'Derrotas: ' + playerWinsLosses.losses;
+      document.getElementById('win-losses').innerHTML = 'KD: ' + ((playerWinsLosses.wins / playerWinsLosses.losses).toFixed(2));
+
+      document.getElementById('champion-first').innerHTML = `Nome: ${await getChampionName(champions[0].id)} - ${champions[0].points}`;
+      document.getElementById('champion-second').innerHTML = `Nome: ${await getChampionName(champions[1].id)} - ${champions[1].points}`;
+      document.getElementById('champion-third').innerHTML = `Nome: ${await getChampionName(champions[2].id)} - ${champions[2].points}`;
+    
+      document.getElementById('champion-img-url').src = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${await getChampionName(champions[0].id)}_0.jpg`;
+      document.getElementById('maestry-img').src = `https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/${getRankId(playerRank.tier)}.png`;
+      
+      document.getElementById('maestry-data').innerHTML = `${playerRank.tier} - ${playerRank.rank}`
+
+    } catch (error) {
+      console.error('Error inserting player data:', error);
+      throw error;
+    }
+  }
+</script>
+
+
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  body {
+    display: grid;
+    grid-template-columns: 1fr;
+    color: #fff;
+    background-color: #121212;
+    min-height: 90vh;
+    margin: 0;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    padding: 10px;
+  }
+  
+  main {
+    width: 90%;
+    height: 90%;
+    background-color: #242424;
+    box-shadow: rgb(68, 0, 42) 0px 20px 30px -10px;
+    border-radius: 10px;
+  }
+  
+  #content-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+  
+  #champion-container, #player-container {
+    margin: 10px;
+    padding: 20px;
+    background-color: #303030;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    align-content: center;
+  }
+  
+  #champion-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 30vh;
+  }
+  
+  #champion-img-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  #champion-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  
+  #champion-points {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    align-content: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  #player-profile-area {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #player-container {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  #player-profile-area {
+    flex: 1;
+  }
+  
+  #player-maestry-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+  
+  #name-area {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    justify-content: center;
+    gap: 20px;
+    font-size: 20px;
+  }
+  
+  #data-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #wins, #losses, #win-losses {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #player-profile-icon img {
+    max-width: 50px;
+    border-radius: 50%;
+  }
+
+  #player-maestry-area {
+    display: flex;
+    flex-direction: column;
+  }
+
+</style>
+
+</html>
