@@ -97,4 +97,20 @@ export class LeagueDataService {
       throw new Error(`Erro ao obter dados do jogador: ${error.message}`);
     }
   }
+
+  async getTopTwoHundred(
+    queue: string,
+    tier: string,
+    division: string,
+  ): Promise<any> {
+    try {
+      const url = `${this.lolBaseUrl}/league-exp/v4/entries/${queue}/${tier}/${division}`;
+      return this.httpService.get(url).pipe(
+        map((response: AxiosResponse) => {
+          console.log(response.data.length);
+          return response.data;
+        }),
+      );
+    } catch {}
+  }
 }

@@ -18,4 +18,13 @@ export class LeagueStatsController {
       throw new Error(`Erro ao obter dados do jogador: ${error.message}`);
     }
   }
+
+  @Get('leaderboard/:queue/:tier/:division')
+  async getLeaderboard(
+    @Param('queue') queue: string,
+    @Param('tier') tier: string,
+    @Param('division') division: string,
+  ): Promise<any> {
+    return this.leagueStatsService.getLeaderboard(queue, tier, division);
+  }
 }
