@@ -9,24 +9,32 @@ import { SummonerDto } from './dtos/summoner.dto';
 @ApiTags('league-data')
 @Controller('league-data')
 export class LeagueDataController {
-  constructor(private readonly leagueDataService: LeagueDataService) {}
+  constructor(private readonly leagueDataService: LeagueDataService) { }
 
   @Get('account/:username/:tag')
   async getAccountData(
     @Param('username') username: string,
     @Param('tag') tag: string,
   ): Promise<AccountDto> {
-    const accountData = await this.leagueDataService
-      .getAccountData(username, tag)
-      .toPromise();
-    return accountData;
+    try {
+      const accountData = await this.leagueDataService
+        .getAccountData(username, tag)
+        .toPromise();
+      return accountData;
+    } catch (error) {
+      throw new Error(`Erro ao obter dados do jogador: ${error.message}`);
+    }
   }
 
   @Get('summoner/:accountId')
   async getSummonerData(
     @Param('accountId') accountId: string,
   ): Promise<SummonerDto> {
-    return await this.leagueDataService.getSummonerData(accountId).toPromise();
+    try {
+      return await this.leagueDataService.getSummonerData(accountId).toPromise();
+    } catch (error) {
+      throw new Error(`Erro ao obter summonerId: ${error.message}`);
+    }
   }
 
   @Get('player/:username/:tag')
@@ -37,7 +45,7 @@ export class LeagueDataController {
     try {
       return await this.leagueDataService.getPlayerData(username, tag);
     } catch (error) {
-      throw new Error(`Erro ao obter dados do jogador: ${error.message}`);
+      throw new Error(`Erro ao obter dados do player: ${error.message}`);
     }
   }
 
@@ -48,7 +56,7 @@ export class LeagueDataController {
     try {
       return await this.leagueDataService.getMasteryData(accountId).toPromise();
     } catch (error) {
-      throw new Error(`Erro ao obter dados de maestria: ${error.message}`);
+      throw new Error(`Erro ao obter dados de ranking: ${error.message}`);
     }
   }
 
@@ -56,11 +64,19 @@ export class LeagueDataController {
   async getLeagueData(
     @Param('summonerId') summonerId: string,
   ): Promise<LeagueEntryDto[]> {
-    return await this.leagueDataService.getLeagueData(summonerId).toPromise();
+    try {
+      return await this.leagueDataService.getLeagueData(summonerId).toPromise();
+    } catch (error) {
+      throw new Error(`Erro ao obter dados de campeoes: ${error.message}`);
+    }
   }
 
   @Get('status')
   async getApiStatus(): Promise<any> {
-    return this.leagueDataService.getRiotApiStatus();
+    try {
+      return this.leagueDataService.getRiotApiStatus();
+    } catch (error) {
+      throw new Error(`Erro ao obter status da riot: ${error.message}`);
+    }
   }
 }

@@ -24,8 +24,12 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('delete-my-user')
   async delete(@Req() request: Request) {
-    const requestUser = request['user'];
-    await this.userService.remove(requestUser.userId);
+    try {
+      const requestUser = request['user'];
+      await this.userService.remove(requestUser.userId);
+    } catch (error) {
+      throw new Error(`Erro ao remover usuario: ${error.message}`);
+    }
   }
 
   @ApiBearerAuth()
@@ -33,11 +37,15 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch('recovery-password')
   async recoveryPassword(@Body() body, @Req() request: Request) {
-    const requestUser = request['user'];
-    const storedUser = await this.userService.findById(requestUser.userId);
-
-    const hashedPassword = await hash(body.password, process.env.BCRYPT_SALT);
-    storedUser.password = hashedPassword;
-    await this.userService.update(storedUser.id, storedUser);
+    try {
+      const requestUser = request['user'];
+      const storedUser = await this.userService.findById(requestUser.userId);
+  
+      const hashedPassword = await hash(body.password, process.env.BCRYPT_SALT);
+      storedUser.password = hashedPassword;
+      await this.userService.update(storedUser.id, storedUser);
+    } catch (error) {
+      throw new Error(`Erro ao restaurar senha: ${error.message}`);
+    }
   }
 }
