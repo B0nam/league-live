@@ -1,3 +1,5 @@
+`[Observação] A Chave de utilização da API da Riotgames deve ser atualizada a cada 24h, caso a aplicação não esteja funcionando adequadamente, é muito provavel que a chave utilizada tenha expirado. Neste caso, enviar mensagem para o Whatsapp do Kauan Muriel ou Daniel Bonam`
+
 # league-live
 
 Segunda prova prática para a disciplina de Desafio Profissional V do 5º semestre do curso de graduação de Engenharia de Software da Unicesumar.
