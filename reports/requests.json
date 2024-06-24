@@ -1,0 +1,852 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+      "/ping": {
+        "get": {
+          "operationId": "AppController_healthCheck",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "health-check"
+          ]
+        }
+      },
+      "/league-data/account/{username}/{tag}": {
+        "get": {
+          "operationId": "LeagueDataController_getAccountData",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AccountDto"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-data"
+          ]
+        }
+      },
+      "/league-data/summoner/{accountId}": {
+        "get": {
+          "operationId": "LeagueDataController_getSummonerData",
+          "parameters": [
+            {
+              "name": "accountId",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SummonerDto"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-data"
+          ]
+        }
+      },
+      "/league-data/player/{username}/{tag}": {
+        "get": {
+          "operationId": "LeagueDataController_getPlayerData",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-data"
+          ]
+        }
+      },
+      "/league-data/mastery/{accountId}": {
+        "get": {
+          "operationId": "LeagueDataController_getMasteryData",
+          "parameters": [
+            {
+              "name": "accountId",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-data"
+          ]
+        }
+      },
+      "/league-data/league/{summonerId}": {
+        "get": {
+          "operationId": "LeagueDataController_getLeagueData",
+          "parameters": [
+            {
+              "name": "summonerId",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/LeagueEntryDto"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-data"
+          ]
+        }
+      },
+      "/league-data/status": {
+        "get": {
+          "operationId": "LeagueDataController_getApiStatus",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-data"
+          ]
+        }
+      },
+      "/player": {
+        "post": {
+          "operationId": "PlayerController_create",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePlayerDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "The player has been successfully created.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EntityIdDto"
+                  }
+                }
+              }
+            },
+            "201": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "player"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        },
+        "get": {
+          "operationId": "PlayerController_findAll",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Player"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "player"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        }
+      },
+      "/player/{id}": {
+        "get": {
+          "operationId": "PlayerController_findOne",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Player"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "player"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        },
+        "patch": {
+          "operationId": "PlayerController_update",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePlayerDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "player"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        },
+        "delete": {
+          "operationId": "PlayerController_remove",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "player"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        }
+      },
+      "/league-stats/{username}/{tag}": {
+        "get": {
+          "operationId": "LeagueStatsController_getPlayerView",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-stats"
+          ]
+        }
+      },
+      "/league-stats/export/{username}/{tag}": {
+        "get": {
+          "operationId": "LeagueStatsController_exportPlayerView",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "league-stats"
+          ]
+        }
+      },
+      "/league-stats/leaderboard/{queue}/{tier}/{division}": {
+        "get": {
+          "operationId": "LeagueStatsController_getLeaderboard",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "league-stats"
+          ]
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "operationId": "AuthController_signin",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SigninDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "You have successfully logged in.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AccessTokenDto"
+                  }
+                }
+              }
+            },
+            "201": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "auth"
+          ]
+        }
+      },
+      "/user/register": {
+        "post": {
+          "operationId": "UserController_sigup",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "You have successfully registered.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EntityIdDto"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "user"
+          ]
+        }
+      },
+      "/user/delete-my-user": {
+        "delete": {
+          "operationId": "UserController_delete",
+          "parameters": [],
+          "responses": {
+            "204": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "user"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        }
+      },
+      "/user/recover-password": {
+        "patch": {
+          "operationId": "UserController_recoverPassword",
+          "parameters": [],
+          "responses": {
+            "204": {
+              "description": ""
+            }
+          },
+          "tags": [
+            "user"
+          ],
+          "security": [
+            {
+              "bearer": []
+            }
+          ]
+        }
+      }
+    },
+    "info": {
+      "title": "League Live",
+      "description": "Api do sistema de geração de dados de contas de League of Legends.",
+      "version": "3.0",
+      "contact": {
+  
+      }
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+      "securitySchemes": {
+        "bearer": {
+          "scheme": "bearer",
+          "bearerFormat": "JWT",
+          "type": "http"
+        }
+      },
+      "schemas": {
+        "AccountDto": {
+          "type": "object",
+          "properties": {
+            "puuid": {
+              "type": "string"
+            },
+            "gameName": {
+              "type": "string"
+            },
+            "tagLine": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "puuid",
+            "gameName",
+            "tagLine"
+          ]
+        },
+        "SummonerDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "accountId": {
+              "type": "string"
+            },
+            "puuid": {
+              "type": "string"
+            },
+            "profileIconId": {
+              "type": "string"
+            },
+            "revisionDate": {
+              "type": "string"
+            },
+            "summonerLevel": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "accountId",
+            "puuid",
+            "profileIconId",
+            "revisionDate",
+            "summonerLevel"
+          ]
+        },
+        "LeagueEntryDto": {
+          "type": "object",
+          "properties": {
+            "leagueId": {
+              "type": "string"
+            },
+            "queueType": {
+              "type": "string"
+            },
+            "tier": {
+              "type": "string"
+            },
+            "rank": {
+              "type": "string"
+            },
+            "summonerId": {
+              "type": "string"
+            },
+            "leaguePoints": {
+              "type": "number"
+            },
+            "wins": {
+              "type": "number"
+            },
+            "losses": {
+              "type": "number"
+            },
+            "veteran": {
+              "type": "boolean"
+            },
+            "inactive": {
+              "type": "boolean"
+            },
+            "freshBlood": {
+              "type": "boolean"
+            },
+            "hotStreak": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "leagueId",
+            "queueType",
+            "tier",
+            "rank",
+            "summonerId",
+            "leaguePoints",
+            "wins",
+            "losses",
+            "veteran",
+            "inactive",
+            "freshBlood",
+            "hotStreak"
+          ]
+        },
+        "CreatePlayerDto": {
+          "type": "object",
+          "properties": {
+            "summonerId": {
+              "type": "string"
+            },
+            "queueType": {
+              "type": "string"
+            },
+            "tier": {
+              "type": "string"
+            },
+            "rank": {
+              "type": "string"
+            },
+            "leaguePoints": {
+              "type": "number"
+            },
+            "wins": {
+              "type": "number"
+            },
+            "losses": {
+              "type": "number"
+            },
+            "hotStreak": {
+              "type": "boolean"
+            },
+            "veteran": {
+              "type": "boolean"
+            },
+            "freshBlood": {
+              "type": "boolean"
+            },
+            "inactive": {
+              "type": "boolean"
+            },
+            "detailsUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "summonerId",
+            "queueType",
+            "tier",
+            "rank",
+            "leaguePoints",
+            "wins",
+            "losses",
+            "hotStreak",
+            "veteran",
+            "freshBlood",
+            "inactive"
+          ]
+        },
+        "EntityIdDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "Player": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "summonerId": {
+              "type": "string"
+            },
+            "queueType": {
+              "type": "string"
+            },
+            "tier": {
+              "type": "string"
+            },
+            "rank": {
+              "type": "string"
+            },
+            "leaguePoints": {
+              "type": "number"
+            },
+            "wins": {
+              "type": "number"
+            },
+            "losses": {
+              "type": "number"
+            },
+            "hotStreak": {
+              "type": "boolean"
+            },
+            "veteran": {
+              "type": "boolean"
+            },
+            "freshBlood": {
+              "type": "boolean"
+            },
+            "inactive": {
+              "type": "boolean"
+            },
+            "detailsUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "summonerId",
+            "queueType",
+            "tier",
+            "rank",
+            "leaguePoints",
+            "wins",
+            "losses",
+            "hotStreak",
+            "veteran",
+            "freshBlood",
+            "inactive"
+          ]
+        },
+        "UpdatePlayerDto": {
+          "type": "object",
+          "properties": {
+            "queueType": {
+              "type": "string"
+            },
+            "tier": {
+              "type": "string"
+            },
+            "rank": {
+              "type": "string"
+            },
+            "leaguePoints": {
+              "type": "number"
+            },
+            "wins": {
+              "type": "number"
+            },
+            "losses": {
+              "type": "number"
+            },
+            "hotStreak": {
+              "type": "boolean"
+            },
+            "veteran": {
+              "type": "boolean"
+            },
+            "freshBlood": {
+              "type": "boolean"
+            },
+            "inactive": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "queueType",
+            "tier",
+            "rank",
+            "leaguePoints",
+            "wins",
+            "losses",
+            "hotStreak",
+            "veteran",
+            "freshBlood",
+            "inactive"
+          ]
+        },
+        "SigninDto": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "minLength": 8
+            },
+            "password": {
+              "type": "string",
+              "minLength": 8
+            }
+          },
+          "required": [
+            "username",
+            "password"
+          ]
+        },
+        "AccessTokenDto": {
+          "type": "object",
+          "properties": {
+            "access_token": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "access_token"
+          ]
+        },
+        "CreateUserDto": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string",
+              "minLength": 8
+            },
+            "password": {
+              "type": "string",
+              "minLength": 8
+            }
+          },
+          "required": [
+            "email",
+            "username",
+            "password"
+          ]
+        }
+      }
+    }
+  }

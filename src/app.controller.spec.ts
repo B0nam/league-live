@@ -14,7 +14,7 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
+  describe('ping', () => {
     it('should return "Hello World!"', () => {
       expect(appController.healthCheck).toBe('pong');
     });
