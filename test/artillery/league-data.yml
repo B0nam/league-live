@@ -1,0 +1,35 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 10
+      arrivalRate: 10
+scenarios:
+  - name: GET /league-data/account/<username>/<tag>
+    flow:
+      - get:
+          url: "/league-data/account/frosty/kr3"
+
+  - name: GET /league-data/summoner/<accountId>
+    flow:
+      - get:
+          url: "/league-data/summoner/123456"
+
+  - name: GET /league-data/player/<username>/<tag>
+    flow:
+      - get:
+          url: "/league-data/player/frosty/kr3"
+
+  - name: GET /league-data/mastery/<accountId>
+    flow:
+      - get:
+          url: "/league-data/mastery/123456"
+
+  - name: GET /league-data/league/<summonerId>
+    flow:
+      - get:
+          url: "/league-data/league/789012"
+
+  - name: GET /league-data/status
+    flow:
+      - get:
+          url: "/league-data/status"

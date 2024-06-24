@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 10
+      arrivalRate: 10
+scenarios:
+  - name: GET /league-stats/<username>/<tag>
+    flow:
+      - get:
+          url: "/league-stats/frosty/kr3"
+  - name: GET /league-stats/export/<username>/<tag>
+    flow:
+      - get:
+          url: "/league-stats/export/frosty/kr3"
+  - name: GET /leaderboard/:queue/:tier/:division
+    flow:
+      - get:
+          url: "/league-stats/leaderboard/RANKED_SOLO_5x5/IRON/IV"
