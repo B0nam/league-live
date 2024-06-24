@@ -5,7 +5,7 @@ import { AccountDto } from './dtos/account.dto';
 import { LeagueEntryDto } from './dtos/league-entry.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { SummonerDto } from './dtos/summoner.dto';
-import { searchParams } from 'src/common/entity/searchParams';
+import { SearchParams } from 'src/common/dto/search.params';
 
 @ApiTags('league-data')
 @Controller('league-data')
@@ -14,7 +14,7 @@ export class LeagueDataController {
 
   @Get('account/:username/:tag')
   async getAccountData(
-    @Param() params: searchParams,
+    @Param() params: SearchParams,
   ): Promise<AccountDto> {
     try {
       const accountData = await this.leagueDataService
@@ -39,7 +39,7 @@ export class LeagueDataController {
 
   @Get('player/:username/:tag')
   async getPlayerData(
-    @Param() params: searchParams,
+    @Param() params: SearchParams,
   ): Promise<any> {
     try {
       return await this.leagueDataService.getPlayerData(params.username, params.tag);

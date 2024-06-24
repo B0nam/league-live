@@ -3,7 +3,7 @@ import { LeagueStatsService } from './league-stats.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { LeaderboardParams } from './dto/leaderboard.params';
-import { searchParams } from '../common/entity/searchParams';
+import { SearchParams } from 'src/common/dto/search.params';
 
 @ApiTags('league-stats')
 @Controller('league-stats')
@@ -12,7 +12,7 @@ export class LeagueStatsController {
 
   @Get('/:username/:tag')
   async getPlayerView(
-    @Param() params: searchParams,
+    @Param() params: SearchParams,
   ): Promise<any> {
     try {
       return await this.leagueStatsService.getPlayerView(params.username, params.tag);
@@ -23,7 +23,7 @@ export class LeagueStatsController {
 
   @Get('/export/:username/:tag')
   async exportPlayerView(
-    @Param() params: searchParams,
+    @Param() params: SearchParams,
     @Res() res: Response,
   ): Promise<void> {
     try {
