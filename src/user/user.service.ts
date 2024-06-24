@@ -22,18 +22,31 @@ export class UserService {
     return this.userRepository.findOneBy({ username });
   }
 
+  findByEmail(email: string): Promise<User | undefined> {
+    return this.userRepository.findOneBy({ email });
+  }
+
   async remove(id: number): Promise<void> {
     await this.userRepository.delete(id);
   }
 
   async create(user: User): Promise<User | null> {
-    const existsUser = await this.findByUsername(user.username);
+    const sameUsernameUser = await this.findByUsername(user.username); 
 
-    if (existsUser && existsUser !== null) {
+    if (sameUsernameUser && sameUsernameUser !== null) {
       throw new ConflictException({
         message: 'There is already an user with this username.',
       });
     }
+
+    const sameEmailUser = await this.findByEmail(user.email);
+    
+    if (sameEmailUser && sameEmailUser !== null) {
+      throw new ConflictException({
+        message: 'There is already an user with this email.',
+      });
+    }
+
     return this.userRepository.save(user);
   }
 

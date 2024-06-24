@@ -5,7 +5,7 @@ import * as path from 'path';
 import puppeteer from 'puppeteer';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Player } from './entity/player.entity';
+import { Player } from '../player/entities/player.entity';
 
 @Injectable()
 export class LeagueStatsService {

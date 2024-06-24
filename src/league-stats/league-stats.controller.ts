@@ -2,7 +2,7 @@ import { Controller, Get, Param, Res, UsePipes, ValidationPipe } from '@nestjs/c
 import { LeagueStatsService } from './league-stats.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { LeaderboardParams } from './entity/LeaderboardParams';
+import { LeaderboardParams } from './dto/leaderboard.params';
 import { searchParams } from '../common/entity/searchParams';
 
 @ApiTags('league-stats')

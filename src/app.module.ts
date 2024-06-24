@@ -7,13 +7,17 @@ import { AuthModule } from './auth/auth.module';
 import { LoggerModule } from './logger/logger.module';
 import { RequestLogMiddleware } from './logger/middlewares/request-log.middleware';
 import { LeagueStatsModule } from './league-stats/league-stats.module';
+import { PlayerModule } from './player/player.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
+    CommonModule,
     LeagueDataModule,
     LeagueStatsModule,
     AuthModule,
     LoggerModule,
+    PlayerModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -24,6 +28,7 @@ import { LeagueStatsModule } from './league-stats/league-stats.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    PlayerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
