@@ -1,0 +1,12 @@
+export enum TierType {
+    CHALLENGER = 'CHALLENGER',
+    GRANDMASTER = 'GRANDMASTER',
+    MASTER = 'MASTER',
+    DIAMOND = 'DIAMOND',
+    ESMERALD = 'ESMERALD',
+    PLATINUM = 'PLATINUM',
+    GOLD = 'GOLD',
+    SILVER = 'SILVER',
+    BRONZE = 'BRONZE',
+    IRON = 'IRON',
+  }  
