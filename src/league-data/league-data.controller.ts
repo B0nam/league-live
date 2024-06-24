@@ -1,10 +1,11 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { LeagueDataService } from './league-data.service';
-import { MasteryDto } from './interfaces/mastery.interface';
+import { MasteryDto } from './dtos/mastery.dto';
 import { AccountDto } from './dtos/account.dto';
 import { LeagueEntryDto } from './dtos/league-entry.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { SummonerDto } from './dtos/summoner.dto';
+import { PlayerDto } from './dtos/player.dto';
 
 @ApiTags('league-data')
 @Controller('league-data')
@@ -41,7 +42,7 @@ export class LeagueDataController {
   async getPlayerData(
     @Param('username') username: string,
     @Param('tag') tag: string,
-  ): Promise<any> {
+  ): Promise<PlayerDto> {
     try {
       return await this.leagueDataService.getPlayerData(username, tag);
     } catch (error) {

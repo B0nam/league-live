@@ -37,7 +37,4 @@ export class Player {
 
   @Column({ default: false })
   inactive: boolean;
-
-  @Column({ nullable: true })
-  detailsUrl?: string;
 }

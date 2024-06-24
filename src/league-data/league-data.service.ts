@@ -1,6 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
-import { MasteryDto } from './interfaces/mastery.interface';
+import { MasteryDto } from './dtos/mastery.dto';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { AccountDto } from './dtos/account.dto';

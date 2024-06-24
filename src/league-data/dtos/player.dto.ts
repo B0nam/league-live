@@ -1,4 +1,4 @@
-import { MasteryDto } from '../interfaces/mastery.interface';
+import { MasteryDto } from './mastery.dto';
 import { AccountDto } from './account.dto';
 import { LeagueEntryDto } from './league-entry.dto';
 import { SummonerDto } from './summoner.dto';
