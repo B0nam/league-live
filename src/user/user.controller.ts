@@ -5,19 +5,35 @@ import {
   HttpCode,
   HttpStatus,
   Patch,
+  Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request } from 'express';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { hash } from 'bcrypt';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { EntityIdDto } from 'src/common/dto/entity-id.dto';
+import { CreateUserDto } from './dtos/create-user.dto';
+import { User } from './entities/user.entity';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @ApiCreatedResponse({
+    description: 'You have successfully registered.',
+    type: EntityIdDto,
+  })
+  @HttpCode(HttpStatus.CREATED)
+  @Post('register')
+  async sigup(@Body() createUserDto: CreateUserDto) {
+    createUserDto.password = await hash(createUserDto.password, process.env.BCRYPT_SALT);
+    const createdUser = await this.userService.create(createUserDto as unknown as User);
+    return new EntityIdDto(createdUser.id);
+  }
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
@@ -35,8 +51,8 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Patch('recovery-password')
-  async recoveryPassword(@Body() body, @Req() request: Request) {
+  @Patch('recover-password')
+  async recoverPassword(@Body() body, @Req() request: Request) {
     try {
       const requestUser = request['user'];
       const storedUser = await this.userService.findById(requestUser.userId);
