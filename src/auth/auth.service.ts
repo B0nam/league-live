@@ -35,6 +35,6 @@ export class AuthService {
 
   async signUp(user: CreateUserDto): Promise<User> {
     user.password = await hash(user.password, process.env.BCRYPT_SALT);
-    return await this.userService.create(user as User);
+    return await this.userService.create(user as unknown as User);
   }
 }

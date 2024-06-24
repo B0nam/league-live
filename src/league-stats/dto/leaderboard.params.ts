@@ -1,7 +1,7 @@
 import { IsEnum, IsString } from "class-validator";
-import { QueueType } from "./queue-type.enum";
-import { TierType } from "./tier-type.enum";
-import { DivisionType } from "./division-type.enum";
+import { QueueType } from "../entity/queue-type.enum";
+import { TierType } from "../entity/tier-type.enum";
+import { DivisionType } from "../entity/division-type.enum";
 
 export class LeaderboardParams {
     @IsString()

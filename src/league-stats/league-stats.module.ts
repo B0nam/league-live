@@ -3,13 +3,11 @@ import { LeagueStatsService } from './league-stats.service';
 import { LeagueStatsController } from './league-stats.controller';
 import { LeagueDataService } from 'src/league-data/league-data.service';
 import { HttpModule } from '@nestjs/axios';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Player } from './entity/player.entity';
+import { PlayerModule } from 'src/player/player.module';
 
 @Module({
-  imports: [HttpModule, TypeOrmModule.forFeature([Player])],
+  imports: [HttpModule, PlayerModule],
   controllers: [LeagueStatsController],
   providers: [LeagueStatsService, LeagueDataService],
-  exports: [TypeOrmModule],
 })
 export class LeagueStatsModule {}

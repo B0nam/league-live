@@ -7,7 +7,7 @@ import { AccountDto } from './dtos/account.dto';
 import { PlayerDto } from './dtos/player.dto';
 import { LeagueEntryDto } from './dtos/league-entry.dto';
 import { SummonerDto } from './dtos/summoner.dto';
-import { Player } from 'src/league-stats/entity/player.entity';
+import { Player } from 'src/player/entities/player.entity';
 
 @Injectable()
 export class LeagueDataService {
@@ -108,7 +108,6 @@ export class LeagueDataService {
       const url = `${this.lolBaseUrl}/league-exp/v4/entries/${queue}/${tier}/${division}`;
       return this.httpService.get(url).pipe(
         map((response: AxiosResponse) => {
-          console.log(response.data.length);
           return response.data;
         }),
       );
