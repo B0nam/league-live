@@ -1,10 +1,10 @@
 # league-live
 
-Segunda Prova prática para a disciplina de Desafio Profissional V do 5º semestre do curso de graduação de Engenharia de Software da Unicesumar.
+Segunda prova prática para a disciplina de Desafio Profissional V do 5º semestre do curso de graduação de Engenharia de Software da Unicesumar.
 
 Desenvolvido por **Kauan Muriel Rossi (2214501-2)**, **Daniel Bonam Rissardi (22013838-2)** e **Bruno Batista Carrião Moreno (24284115-2)**
 
-## Sumario
+## Sumário
 
 - Visão geral
 - Tecnologias utilizadas
@@ -13,11 +13,11 @@ Desenvolvido por **Kauan Muriel Rossi (2214501-2)**, **Daniel Bonam Rissardi (22
 
 ## Visão Geral
 
-League-live consiste em uma aplcação que gera imagens contendo as informações de jogo do jogador de League Of Legends. Por meio do usuário e tag do jogador é gerado uma imagem com as informações do mesmo.
+League-live consiste em uma aplicação, que gera imagens contendo as informações de jogo do jogador de League of Legends. Por meio do usuário e tag do jogador é gerado uma imagem com as informações do mesmo, a qual pode ser compartilhada com os amigos.
 
 As informações exibidas são:
-- Imagem do banner (Gerada por meio do campeão mais jogado.)
-- 3 Campeões mais jogados e seus pontos.
+- Imagem do banner (Gerada por meio do campeão mais jogado)
+- 3 Campeões mais jogados e seus pontos
 - Vitórioas
 - Derrotas
 - KD
@@ -60,7 +60,7 @@ Utilizando a API que escolheu, desenvolva uma aplicação utilizando Nest JS com
 
 - Crie uma entidade e uma rota para "baixar" pelo menos 50 items para sua base dados da API escolhida pelo time
 - Crie todas as operações de CRUD para a entidade anterior, para que os dados sejam cadastrados, atualizados, listados e removidos via métodos HTTP.
--Crie uma entidade de usuário, e crie um sistema de cadastro e autenticação via JWT (crie todos os métodos de CRUD para o usuário, a senha do usuário deve ser criptografada)
+- Crie uma entidade de usuário, e crie um sistema de cadastro e autenticação via JWT (crie todos os métodos de CRUD para o usuário, a senha do usuário deve ser criptografada)
 - Adicione um Auth Guard para as rotas da entidade principal da sua aplicação, somente usuários autenticados poderão chamar essas rotas
 - Crie uma entidade para logar o tempo de resposta das rotas de sua API. - - Registre pelo menos o nome da rota chamada, o método utilizado e quanto tempo demorou para a solicitação terminar.
 - Adicione Exceções a todos os métodos de sua controller, sendo que pelo menos uma delas deve ser de uma classe personalizada
