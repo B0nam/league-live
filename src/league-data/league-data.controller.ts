@@ -5,6 +5,7 @@ import { AccountDto } from './dtos/account.dto';
 import { LeagueEntryDto } from './dtos/league-entry.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { SummonerDto } from './dtos/summoner.dto';
+import { SearchParams } from 'src/common/dto/search.params';
 import { PlayerDto } from './dtos/player.dto';
 
 @ApiTags('league-data')
@@ -14,12 +15,11 @@ export class LeagueDataController {
 
   @Get('account/:username/:tag')
   async getAccountData(
-    @Param('username') username: string,
-    @Param('tag') tag: string,
+    @Param() params: SearchParams,
   ): Promise<AccountDto> {
     try {
       const accountData = await this.leagueDataService
-        .getAccountData(username, tag)
+        .getAccountData(params.username, params.tag)
         .toPromise();
       return accountData;
     } catch (error) {
@@ -40,11 +40,10 @@ export class LeagueDataController {
 
   @Get('player/:username/:tag')
   async getPlayerData(
-    @Param('username') username: string,
-    @Param('tag') tag: string,
+    @Param() params: SearchParams,
   ): Promise<PlayerDto> {
     try {
-      return await this.leagueDataService.getPlayerData(username, tag);
+      return await this.leagueDataService.getPlayerData(params.username, params.tag);
     } catch (error) {
       throw new Error(`Erro ao obter dados do player: ${error.message}`);
     }

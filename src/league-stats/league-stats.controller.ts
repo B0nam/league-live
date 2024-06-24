@@ -3,6 +3,7 @@ import { LeagueStatsService } from './league-stats.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { LeaderboardParams } from './dto/leaderboard.params';
+import { SearchParams } from 'src/common/dto/search.params';
 import { Player } from 'src/player/entities/player.entity';
 
 @ApiTags('league-stats')
@@ -12,11 +13,10 @@ export class LeagueStatsController {
 
   @Get('/:username/:tag')
   async getPlayerView(
-    @Param('username') username: string,
-    @Param('tag') tag: string,
+    @Param() params: SearchParams,
   ): Promise<any> {
     try {
-      return await this.leagueStatsService.getPlayerView(username, tag);
+      return await this.leagueStatsService.getPlayerView(params.username, params.tag);
     } catch (error) {
       throw new Error(`Erro ao obter dados do jogador: ${error.message}`);
     }
@@ -24,12 +24,11 @@ export class LeagueStatsController {
 
   @Get('/export/:username/:tag')
   async exportPlayerView(
-    @Param('username') username: string,
-    @Param('tag') tag: string,
+    @Param() params: SearchParams,
     @Res() res: Response,
   ): Promise<void> {
     try {
-      const imagePath = await this.leagueStatsService.exportPlayerView(username, tag);
+      const imagePath = await this.leagueStatsService.exportPlayerView(params.username, params.tag);
       res.sendFile(imagePath);
     } catch (error) {
       res.status(500).send(`Erro ao exportar a view do jogador: ${error.message}`);
