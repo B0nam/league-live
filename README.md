@@ -1,5 +1,7 @@
 `[Observação] A Chave de utilização da API da Riotgames deve ser atualizada a cada 24h, caso a aplicação não esteja funcionando adequadamente, é muito provavel que a chave utilizada tenha expirado. Neste caso, enviar mensagem para o Whatsapp do Kauan Muriel ou Daniel Bonam`
 
+`[Observação] Você pode utilizar a sua própria chave de desenvolver riot games, solicite em: https://developer.riotgames.com/ e atualiza o parâmetro RIOT_KEY no arquivo .env na pasta raiz do projeto.`
+
 # league-live
 
 Segunda prova prática para a disciplina de Desafio Profissional V do 5º semestre do curso de graduação de Engenharia de Software da Unicesumar.
